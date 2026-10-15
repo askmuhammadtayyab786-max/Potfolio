@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f1722"/><stop offset="1" stop-color="#1b2a3d"/></linearGradient>
+<linearGradient id="scr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1220"/><stop offset="1" stop-color="#13213a"/></linearGradient>
+<linearGradient id="base" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9dee6"/><stop offset="1" stop-color="#9aa3b0"/></linearGradient>
+</defs>
+<rect width="640" height="480" fill="url(#bg)"/>
+<rect x="110" y="50" width="420" height="270" rx="14" fill="#2a3340"/>
+<rect x="122" y="62" width="396" height="246" rx="6" fill="url(#scr)"/>
+<rect x="122" y="62" width="396" height="22" rx="6" fill="#18253b"/>
+<circle cx="138" cy="73" r="4" fill="#ff5f57"/><circle cx="152" cy="73" r="4" fill="#febc2e"/><circle cx="166" cy="73" r="4" fill="#28c840"/>
+<g font-family="Consolas,monospace" font-size="12" fill="#7fd1ff">
+<text x="138" y="108" fill="#d6ff4b">$ terraform apply -auto-approve</text>
+<text x="138" y="130" fill="#8aa0b8">✔ vpc, alb, eks cluster provisioned</text>
+<text x="138" y="152" fill="#d6ff4b">$ kubectl rollout status deploy/app</text>
+<text x="138" y="174" fill="#8aa0b8">✔ deployment "app" successfully rolled out</text>
+<text x="138" y="196" fill="#d6ff4b">$ trivy image app:latest</text>
+<text x="138" y="218" fill="#8aa0b8">✔ 0 critical · 0 high vulnerabilities</text>
+</g>
+<rect x="138" y="240" width="364" height="8" rx="4" fill="#223250"/><rect x="138" y="240" width="300" height="8" rx="4" fill="#d6ff4b"/>
+<g fill="#223250"><rect x="138" y="262" width="110" height="34" rx="6"/><rect x="258" y="262" width="110" height="34" rx="6"/><rect x="378" y="262" width="124" height="34" rx="6"/></g>
+<path d="M70 320h500l-30 30a14 14 0 0 1-10 4H110a14 14 0 0 1-10-4z" fill="url(#base)"/>
+<rect x="270" y="322" width="100" height="6" rx="3" fill="#7d8694"/>
+<ellipse cx="320" cy="400" rx="260" ry="14" fill="#000" opacity=".25"/>
+</svg>

@@ -1,0 +1,52 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# next.js build output
+/.next/
+/out/
+
+# production build
+/build
+
+# environment variables: these hold secrets (Gmail app password, OpenRouter key)
+.env
+.env*.local
+.env.development
+.env.production
+# keep the template with empty values
+!.env.example
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# vercel
+.vercel
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# testing
+/coverage
+
+# misc
+.DS_Store
+Thumbs.db
+*.pem
+
+# editor / tool folders
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.serena/

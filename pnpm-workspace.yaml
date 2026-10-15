@@ -1,0 +1,9 @@
+pmOnFail: ignore
+
+minimumReleaseAgeExclude:
+  - '@next/*'
+  - next
+
+# Flat node_modules without symlinks: symlinked installs fail with "Access is denied" on this machine.
+nodeLinker: hoisted
+packageImportMethod: copy
