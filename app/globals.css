@@ -193,7 +193,7 @@ html [data-sonner-toaster] [data-sonner-toast].portfolio-toast[data-type='loadin
 
 @media (max-width: 700px) { .hero-atoms { width: 112%; }.form-submit { flex: 1 1 100%; } }
 /* Large portrait filling the About panel, atoms orbiting the whole frame */
-.about-profile .profile-photo-wrap { width: min(80%, 440px); height: auto; aspect-ratio: 1; margin: clamp(28px, 4vw, 48px) auto clamp(32px, 4vw, 52px); }
+.about-profile .profile-photo-wrap { width: min(70%, 250px); height: auto; aspect-ratio: 1; margin: clamp(28px, 4vw, 48px) auto clamp(32px, 4vw, 52px); }
 .about-profile .profile-photo { width: 84%; height: 84%; border-width: 4px; }
 .about-profile .profile-atoms { inset: -12%; }
 .about-profile .profile-atoms .atom-electron { r: 6px; }
