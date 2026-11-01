@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer'
+import { clientIp, isRateLimited, isSameOrigin, readJson } from '@/lib/request-guard'
 
 export const runtime = 'nodejs'
 
@@ -33,19 +34,20 @@ function emailShell(title: string, body: string) {
 }
 
 export async function POST(request: Request) {
-  let payload: Record<string, unknown>
-  try {
-    payload = await request.json()
-  } catch {
-    return Response.json({ error: 'Invalid request.' }, { status: 400 })
-  }
+  if (!isSameOrigin(request)) return Response.json({ error: 'Forbidden.' }, { status: 403 })
+  // The form also sends a confirmation to the visitor's address, so cap it hard to stop it being used as a mail relay.
+  if (isRateLimited(`contact:${clientIp(request)}`, 3, 10 * 60_000)) return Response.json({ error: 'Too many messages — please try again in a few minutes.' }, { status: 429 })
+
+  const payload = await readJson(request, 20_000)
+  if (!payload) return Response.json({ error: 'Invalid request.' }, { status: 400 })
 
   // Honeypot: real visitors never see or fill this field.
   if (typeof payload.company === 'string' && payload.company.trim()) {
     return Response.json({ ok: true })
   }
 
-  const name = String(payload.name ?? '').trim().slice(0, 120)
+  // Strip control characters and angle brackets so the name can't inject mail headers or fake addresses.
+  const name = String(payload.name ?? '').replace(/[\x00-\x1f\x7f<>"]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 120)
   const email = String(payload.email ?? '').trim().slice(0, 200)
   const message = String(payload.message ?? '').trim().slice(0, 5000)
 
@@ -87,7 +89,7 @@ export async function POST(request: Request) {
     await transporter.sendMail({
       from: `"Portfolio Contact" <${user}>`,
       to: OWNER_EMAIL,
-      replyTo: `"${name.replace(/"/g, '')}" <${email}>`,
+      replyTo: `"${name}" <${email}>`,
       subject: `New project inquiry from ${name}`,
       text: `${details.map(([label, value]) => `${label}: ${value}`).join('\n')}\n\nMessage:\n${message}`,
       html: emailShell('New project inquiry', `

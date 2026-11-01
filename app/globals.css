@@ -305,3 +305,7 @@ html [data-sonner-toaster] [data-sonner-toast].portfolio-toast[data-type='loadin
 .globe-roam .atom-ring { stroke: var(--accent); stroke-opacity: .75; stroke-width: 1.6; fill: none; }
 .globe-roam .atom-electron { fill: var(--accent); opacity: 1; }
 .globe-roam .globe-glow { opacity: .25; }
+
+/* Mobile: keep the "Pipelines that ship" card from covering the name pill on the hero image */
+@media (max-width: 700px) { .hero-visual .visual-card-top { top: 60px; right: -4px; } }
+@media (max-width: 380px) { .hero-visual .visual-card-top { top: 64px; font-size: 11px; padding: 10px 12px; } }
