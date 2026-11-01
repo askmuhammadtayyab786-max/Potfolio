@@ -170,70 +170,74 @@ const projects: Project[] = [
   },
   {
     title: 'Traffic Flow AI Dashboard',
-    description: 'AI-powered traffic management dashboard with analytics, monitoring, and intelligent insights.',
+    description: 'AI-powered traffic management dashboard, containerised with Docker and deployed on Kubernetes with rolling updates and health probes.',
     image: '/projects/traffic.png',
     link: 'https://trafficflowaidashboard.vercel.app/',
-    tags: ['Next.js', 'AI integrations', 'Analytics'],
-    stack: ['React', 'Next.js', 'AI'],
+    tags: ['Docker', 'Kubernetes', 'Next.js', 'AI integrations', 'Analytics'],
+    stack: ['React', 'Next.js', 'AI', 'Docker', 'Kubernetes'],
+    features: ['Dockerised', 'Deployed on Kubernetes', 'Live demo'],
   },
   {
     title: 'Smart Parking Management System',
-    description: 'Modern parking management dashboard with monitoring, management workflows, and analytics.',
+    description: 'Parking management dashboard with a React frontend and Node.js API, shipped as Docker images and run as Kubernetes deployments behind an Nginx ingress.',
     image: '/projects/parking.png',
     link: 'https://v0-parking-system-dashboard.vercel.app/',
-    tags: ['React.js', 'Node.js', 'Dashboard'],
-    stack: ['React', 'Node.js', 'MERN'],
+    tags: ['Docker', 'Kubernetes', 'React.js', 'Node.js', 'Dashboard'],
+    stack: ['React', 'Node.js', 'MERN', 'Docker', 'Kubernetes'],
+    features: ['Dockerised', 'Deployed on Kubernetes', 'Live demo'],
   },
   {
     title: 'Hospital Doctor Dashboard',
-    description: 'Healthcare dashboard interface for doctors with patient records, medical workflows, and management features.',
+    description: 'Healthcare dashboard for doctors, packaged as a non-root Docker image and deployed to Kubernetes with config and secrets kept out of the image.',
     image: '/projects/hospital.png',
     link: 'https://v0-hospital-doctor-dashboard.vercel.app/records',
-    tags: ['Next.js', 'REST APIs', 'Healthcare'],
-    stack: ['React', 'Next.js'],
+    tags: ['Docker', 'Kubernetes', 'Next.js', 'REST APIs', 'Healthcare'],
+    stack: ['React', 'Next.js', 'Docker', 'Kubernetes'],
+    features: ['Dockerised', 'Deployed on Kubernetes', 'Live demo'],
   },
   {
     title: 'BuildCore Construction Platform',
-    description: 'Enterprise construction management platform with project tracking, analytics, reporting, and operational workflows.',
+    description: 'Construction management platform with PostgreSQL, deployed as a multi-container stack with Docker Compose and on Kubernetes with persistent storage for the database.',
     image: '/projects/buildcore.png',
     link: 'https://buildcore-ebon.vercel.app/',
-    tags: ['Full-stack', 'PostgreSQL', 'Reporting'],
-    stack: ['Full-stack'],
+    tags: ['Docker', 'Kubernetes', 'Full-stack', 'PostgreSQL', 'Reporting'],
+    stack: ['Full-stack', 'Docker', 'Kubernetes'],
+    features: ['Dockerised', 'Deployed on Kubernetes', 'Live demo'],
   },
   {
     title: 'Custom Trading Dashboard',
     category: 'FinTech Dashboard | Trading Platform',
-    description: 'A modern financial dashboard for market visualization, portfolio monitoring, analytics, and confident trading workflows.',
+    description: 'Financial trading dashboard containerised with a multi-stage Docker build and deployed on Kubernetes, scaled with multiple replicas behind a Service.',
     image: '/projects/custom-trading.png',
     link: 'https://v0-custom-trading-dashboard-chi.vercel.app/',
-    tags: ['Next.js', 'React.js', 'TypeScript', 'Tailwind CSS', 'Data visualization'],
-    stack: ['React', 'Next.js', 'FinTech'],
-    features: ['Trading analytics', 'Portfolio overview', 'Market insights', 'Interactive charts', 'Performance tracking'],
+    tags: ['Docker', 'Kubernetes', 'Next.js', 'React.js', 'TypeScript'],
+    stack: ['React', 'Next.js', 'FinTech', 'Docker', 'Kubernetes'],
+    features: ['Dockerised', 'Deployed on Kubernetes', 'Trading analytics', 'Portfolio overview', 'Market insights'],
   },
   {
     title: 'Crypto Trading & Analytics Platform',
     category: 'Crypto Platform | Financial Analytics',
-    description: 'A crypto analytics platform with financial reports, market insights, dashboards, and decision-ready data visualization.',
+    description: 'Crypto analytics platform built into a slim Docker image and deployed on Kubernetes with an Ingress, readiness checks and zero-downtime rollouts.',
     image: '/projects/crypto-reports.png',
     link: 'https://v0-crypto-trading-website-mauve.vercel.app/reports',
-    tags: ['Next.js', 'React.js', 'TypeScript', 'Tailwind CSS', 'Charts & analytics'],
-    stack: ['React', 'Next.js', 'FinTech'],
-    features: ['Crypto analytics', 'Financial reports', 'Market insights', 'Trading interface', 'Data visualization'],
+    tags: ['Docker', 'Kubernetes', 'Next.js', 'React.js', 'TypeScript'],
+    stack: ['React', 'Next.js', 'FinTech', 'Docker', 'Kubernetes'],
+    features: ['Dockerised', 'Deployed on Kubernetes', 'Crypto analytics', 'Financial reports', 'Market insights'],
   },
   {
     title: 'Restaurant Management & Ordering Platform',
     category: 'Food & Business Applications',
-    description: 'A modern restaurant web application delivering an engaging menu experience and digital ordering solution for food businesses.',
+    description: 'Restaurant ordering web app, containerised with Docker and served through Nginx, deployed on a Linux server and on Kubernetes.',
     image: '/projects/restaurant.png',
     link: 'https://reestaturant.vercel.app/',
-    tags: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Responsive UI'],
-    stack: ['React', 'Next.js'],
-    features: ['Restaurant landing page', 'Menu browsing', 'Food categories', 'Product showcase', 'Online ordering', 'Mobile responsive design'],
+    tags: ['Docker', 'Kubernetes', 'React.js', 'Next.js', 'TypeScript'],
+    stack: ['React', 'Next.js', 'Docker', 'Kubernetes'],
+    features: ['Dockerised', 'Deployed on Kubernetes', 'Restaurant landing page', 'Menu browsing', 'Food categories'],
   },
 ]
 
 // Filter buttons in display order; any without matching projects are hidden.
-const projectFilters = ['All', 'DevSecOps', 'CI/CD', 'Kubernetes', 'Terraform', 'Cloud', 'Infrastructure', 'Networking', 'React', 'Next.js', 'Node.js', 'MERN', 'AI', 'FinTech', 'Full-stack']
+const projectFilters = ['All', 'DevSecOps', 'CI/CD', 'Kubernetes', 'Docker', 'Terraform', 'Cloud', 'Infrastructure', 'Networking', 'React', 'Next.js', 'Node.js', 'MERN', 'AI', 'FinTech', 'Full-stack']
   .map((label) => ({ label, count: label === 'All' ? projects.length : projects.filter((project) => project.stack.includes(label)).length }))
   .filter((filter) => filter.count > 0)
 
@@ -244,7 +248,7 @@ const OWNER_EMAIL = 'askmuhammadtayyab786@gmail.com'
 const heroHeading: TypeSegment[] = [{ text: 'Secure delivery, ' }, { text: 'automated end to end.', accent: true }]
 const aboutLead: TypeSegment[] = [{ text: "I'm Tayyab, a DevOps and DevSecOps engineer who automates how software is built, shipped, and secured — so releases are fast, repeatable, and safe by default." }]
 const projectsHeading: TypeSegment[] = [{ text: "Projects I've " }, { text: 'built', accent: true }]
-const projectsIntro: TypeSegment[] = [{ text: "Production infrastructure I run, labs I've built from scratch, and applications I've shipped — deployed, automated, and secured with modern DevOps practices." }]
+const projectsIntro: TypeSegment[] = [{ text: "Production infrastructure I run, DevSecOps pipelines and labs I've built, and full-stack apps I've containerised and deployed with Docker and Kubernetes." }]
 const contactHeading: TypeSegment[] = [{ text: 'Have a project in mind?' }]
 const contactIntro: TypeSegment[] = [{ text: "I'm available for freelance and full-time work — CI/CD, cloud infrastructure, and security automation." }]
 
