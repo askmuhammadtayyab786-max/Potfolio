@@ -305,3 +305,16 @@ html [data-sonner-toaster] [data-sonner-toast].portfolio-toast[data-type='loadin
 .globe-roam .atom-ring { stroke: var(--accent); stroke-opacity: .75; stroke-width: 1.6; fill: none; }
 .globe-roam .atom-electron { fill: var(--accent); opacity: 1; }
 .globe-roam .globe-glow { opacity: .25; }
+
+/* Infrastructure project cards: terminal-style preview instead of a screenshot */
+.project-terminal { display: flex; flex-direction: column; background: #0a0f1c; border-bottom: 1px solid var(--line); }
+.terminal-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid #ffffff12; }
+.terminal-bar i { width: 9px; height: 9px; border-radius: 50%; background: #ff5f57; }
+.terminal-bar i:nth-child(2) { background: #febc2e; }.terminal-bar i:nth-child(3) { background: #28c840; }
+.terminal-bar span { margin-left: auto; font-size: 10px; font-weight: 700; letter-spacing: .04em; padding: 3px 8px; border-radius: 999px; color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.project-terminal pre { flex: 1; margin: 0; padding: 18px 20px; display: flex; flex-direction: column; justify-content: center; gap: 7px; overflow: hidden; font: 500 13px/1.35 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c7cde0; }
+.project-terminal code { white-space: pre; overflow: hidden; text-overflow: ellipsis; }
+.project-terminal code.cmd { color: #e6e9f5; }.project-terminal code.ok { color: #4ade80; }
+.project-card.in-view .project-terminal code { animation: image-reveal .9s cubic-bezier(.22,1,.36,1) both; }
+.project-private { color: var(--muted); font-weight: 600; }
+@media (max-width: 600px) { .project-terminal pre { font-size: 11px; padding: 14px; } }

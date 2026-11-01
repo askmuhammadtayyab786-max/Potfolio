@@ -30,14 +30,66 @@ type Project = {
   title: string
   category?: string
   description: string
-  image: string
-  link: string
+  image?: string
+  terminal?: string[]
+  link?: string
+  badge?: string
   tags: string[]
   stack: string[]
   features?: string[]
 }
 
 const projects: Project[] = [
+  {
+    title: 'BigBlueButton Multi-Node Cluster',
+    category: 'Production Infrastructure | EdTech Live Classes',
+    description: 'Scalelite load-balanced BigBlueButton cluster for live online classes: a master node routing meetings across worker nodes, behind pfSense, on VMware ESXi.',
+    terminal: ['$ client -> edge router -> pfSense (NAT)', '$ haproxy :443  SNI routing', '  ├─ master   scalelite + nginx + postgres', '  ├─ worker-1 bbb 3.0  turn :3478', '  └─ worker-2 bbb 3.0  turn :3479', '✓ prometheus + grafana scraping 3 nodes'],
+    badge: 'Production · TeleTaleem',
+    tags: ['BigBlueButton', 'Scalelite', 'HAProxy', 'pfSense', 'Grafana'],
+    stack: ['Infrastructure', 'Networking', 'Monitoring'],
+    features: ['SNI-based TLS routing', 'Double-NAT port forwarding', 'TURN/WebRTC NAT fixes', 'Prometheus + Grafana', 'ufw hardening'],
+  },
+  {
+    title: 'Moodle LMS Production Platform',
+    category: 'Production Infrastructure | LMS Operations',
+    description: 'Running production infrastructure for 9+ Moodle LMS instances, integrated with BigBlueButton live classes and a custom results-import pipeline.',
+    terminal: ['$ systemctl status nginx php-fpm', '✓ 9+ moodle instances online', '$ php import_multiple_results.php', '  tangerine (couchdb) -> moodle grades', '✓ live classes via bigbluebutton'],
+    badge: 'Production · TeleTaleem',
+    tags: ['Moodle', 'Linux', 'PHP', 'CouchDB'],
+    stack: ['Infrastructure'],
+    features: ['9+ production instances', 'Tangerine → Moodle results import', 'BBB live class integration', 'Linux server operations'],
+  },
+  {
+    title: 'Secure Infra From Scratch',
+    category: 'DevSecOps Lab | Open Source',
+    description: 'A full-stack DevSecOps lab built layer by layer — from ISP and firewall up to a containerised application with secrets management and security scanning in the pipeline.',
+    terminal: ['$ isp -> esxi -> pfSense -> vcenter', '$ dns / dhcp / smb / sftp  ready', '$ gitleaks detect --source .', '✓ no leaks found', '$ snyk test && vault kv get app/db', '✓ secrets pulled from vault'],
+    link: 'https://github.com/askmuhammadtayyab786-max/secure-infra-from-scratch',
+    tags: ['DevSecOps', 'Snyk', 'Gitleaks', 'Vault', 'Docker'],
+    stack: ['DevSecOps', 'Infrastructure'],
+    features: ['Secret scanning', 'Dependency scanning', 'HashiCorp Vault', 'Containerised app', 'Monitoring'],
+  },
+  {
+    title: 'VMware vSphere HA Lab',
+    category: 'Virtualization | Data Center',
+    description: 'Multi-host vSphere environment managed from vCenter, with shared NFS storage, high availability, live migration and VM lifecycle automation.',
+    terminal: ['$ vcenter > cluster > hosts', '  ├─ esxi-01  connected', '  ├─ esxi-02  connected', '  └─ esxi-03  connected', '✓ HA + DRS enabled', '✓ vMotion: vm-web -> esxi-02 (0 downtime)'],
+    link: 'https://github.com/askmuhammadtayyab786-max/secure-infra-from-scratch',
+    tags: ['VMware ESXi', 'vCenter', 'vMotion', 'HA', 'DRS'],
+    stack: ['Infrastructure'],
+    features: ['3 ESXi hosts in vCenter', 'NFS shared storage', 'Templates & clones', 'Snapshots', 'vSwitch networking'],
+  },
+  {
+    title: 'pfSense HA & Network Segmentation',
+    category: 'Networking | Security',
+    description: 'Redundant pfSense firewalls on separate hosts with CARP failover, separating users from servers with VLANs and hosting core internal services.',
+    terminal: ['$ pfSense-1 MASTER  <-carp->  pfSense-2 BACKUP', '  LAN      users', '  VLAN 20  servers', '$ jump-server  bind9-dns  smb  sftp', '✓ failover tested'],
+    link: 'https://github.com/askmuhammadtayyab786-max/secure-infra-from-scratch',
+    tags: ['pfSense', 'CARP HA', 'VLANs', 'BIND9', 'Firewall'],
+    stack: ['Networking', 'Infrastructure'],
+    features: ['CARP high availability', 'Users/servers segmentation', 'Jump server', 'Internal DNS (BIND9)', 'SMB & SFTP'],
+  },
   {
     title: 'Traffic Flow AI Dashboard',
     description: 'AI-powered traffic management dashboard with analytics, monitoring, and intelligent insights.',
@@ -103,7 +155,7 @@ const projects: Project[] = [
 ]
 
 // Filter buttons in display order; any without matching projects are hidden.
-const projectFilters = ['All', 'React', 'Next.js', 'Node.js', 'MERN', 'AI', 'FinTech', 'Full-stack']
+const projectFilters = ['All', 'Infrastructure', 'DevSecOps', 'Networking', 'React', 'Next.js', 'Node.js', 'MERN', 'AI', 'FinTech', 'Full-stack']
   .map((label) => ({ label, count: label === 'All' ? projects.length : projects.filter((project) => project.stack.includes(label)).length }))
   .filter((filter) => filter.count > 0)
 
@@ -114,7 +166,7 @@ const OWNER_EMAIL = 'askmuhammadtayyab786@gmail.com'
 const heroHeading: TypeSegment[] = [{ text: 'Secure delivery, ' }, { text: 'automated end to end.', accent: true }]
 const aboutLead: TypeSegment[] = [{ text: "I'm Tayyab, a DevOps and DevSecOps engineer who automates how software is built, shipped, and secured — so releases are fast, repeatable, and safe by default." }]
 const projectsHeading: TypeSegment[] = [{ text: "Projects I've " }, { text: 'built', accent: true }]
-const projectsIntro: TypeSegment[] = [{ text: "Applications I've built and shipped — the kind of products I now deploy, automate, and secure with modern DevOps practices." }]
+const projectsIntro: TypeSegment[] = [{ text: "Production infrastructure I run, labs I've built from scratch, and applications I've shipped — deployed, automated, and secured with modern DevOps practices." }]
 const contactHeading: TypeSegment[] = [{ text: 'Have a project in mind?' }]
 const contactIntro: TypeSegment[] = [{ text: "I'm available for freelance and full-time work — CI/CD, cloud infrastructure, and security automation." }]
 
@@ -155,8 +207,12 @@ const ProjectCard = memo(function ProjectCard({ project }: { project: Project })
   const titleSegments = useMemo(() => [{ text: project.title }], [project.title])
   return (
     <article ref={ref} className={inView ? 'project-card in-view' : 'project-card'}>
-      <a className="project-image" href={project.link} target="_blank" rel="noreferrer"><img src={project.image} alt={`${project.title} dashboard screenshot`} /><span className="image-electron" aria-hidden="true" /><span className="image-electron image-electron-two" aria-hidden="true" /></a>
-      <div className="project-body"><div className="tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><TypeText as="h3" segments={titleSegments} speed={28} delay={250} />{project.category && <p className="project-category">{project.category}</p>}<p>{project.description}</p>{project.features && <ul className="feature-list">{project.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>}<a className="project-link" href={project.link} target="_blank" rel="noreferrer">View live project <ArrowUpRight size={16} /></a></div>
+      {project.terminal ? (
+        <div className="project-image project-terminal" aria-label={`${project.title} overview`}><div className="terminal-bar"><i /><i /><i />{project.badge && <span>{project.badge}</span>}</div><pre>{project.terminal.map((line) => <code key={line} className={line.startsWith('✓') ? 'ok' : line.startsWith('$') ? 'cmd' : undefined}>{line}</code>)}</pre><span className="image-electron" aria-hidden="true" /><span className="image-electron image-electron-two" aria-hidden="true" /></div>
+      ) : (
+        <a className="project-image" href={project.link} target="_blank" rel="noreferrer"><img src={project.image} alt={`${project.title} dashboard screenshot`} /><span className="image-electron" aria-hidden="true" /><span className="image-electron image-electron-two" aria-hidden="true" /></a>
+      )}
+      <div className="project-body"><div className="tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><TypeText as="h3" segments={titleSegments} speed={28} delay={250} />{project.category && <p className="project-category">{project.category}</p>}<p>{project.description}</p>{project.features && <ul className="feature-list">{project.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>}{project.link ? <a className="project-link" href={project.link} target="_blank" rel="noreferrer">{project.link.includes('github.com') ? 'View on GitHub' : 'View live project'} <ArrowUpRight size={16} /></a> : <span className="project-link project-private">Private production system</span>}</div>
     </article>
   )
 })
