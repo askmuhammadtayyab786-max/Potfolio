@@ -318,3 +318,7 @@ html [data-sonner-toaster] [data-sonner-toast].portfolio-toast[data-type='loadin
 .project-card.in-view .project-terminal code { animation: image-reveal .9s cubic-bezier(.22,1,.36,1) both; }
 .project-private { color: var(--muted); font-weight: 600; }
 @media (max-width: 600px) { .project-terminal pre { font-size: 11px; padding: 14px; } }
+
+/* Mobile: keep the "Pipelines that ship" card from covering the name pill on the hero image */
+@media (max-width: 700px) { .hero-visual .visual-card-top { top: 60px; right: -4px; } }
+@media (max-width: 380px) { .hero-visual .visual-card-top { top: 64px; font-size: 11px; padding: 10px 12px; } }

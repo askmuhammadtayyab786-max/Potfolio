@@ -1,3 +1,5 @@
+import { clientIp, isRateLimited, isSameOrigin, readJson } from '@/lib/request-guard'
+
 export const runtime = 'nodejs'
 
 // Claude via OpenRouter's OpenAI-compatible endpoint. Override the model with OPENROUTER_MODEL.
@@ -33,34 +35,18 @@ How to respond:
 
 type ChatTurn = { role: 'user' | 'assistant'; content: string }
 
-// Best-effort per-instance limit so a single visitor can't run up the API bill.
-const hits = new Map<string, { count: number; reset: number }>()
-function rateLimited(ip: string) {
-  const now = Date.now()
-  const entry = hits.get(ip)
-  if (!entry || entry.reset < now) {
-    hits.set(ip, { count: 1, reset: now + 60_000 })
-    return false
-  }
-  entry.count += 1
-  return entry.count > 12
-}
-
 export async function POST(request: Request) {
+  if (!isSameOrigin(request)) return Response.json({ error: 'Forbidden.' }, { status: 403 })
+  // Per-visitor limit so one client can't run up the API bill.
+  if (isRateLimited(`chat:${clientIp(request)}`, 12, 60_000)) return Response.json({ error: "You're sending messages quickly — please wait a minute." }, { status: 429 })
+
+  const payload = await readJson(request, 60_000)
+  if (!payload) return Response.json({ error: 'Invalid request.' }, { status: 400 })
+
   const apiKey = process.env.OPENROUTER_API_KEY
   if (!apiKey) {
     console.error('Chat: OPENROUTER_API_KEY is not configured.')
     return Response.json({ error: 'The assistant is not configured yet.' }, { status: 503 })
-  }
-
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() || 'local'
-  if (rateLimited(ip)) return Response.json({ error: "You're sending messages quickly — please wait a minute." }, { status: 429 })
-
-  let payload: { messages?: unknown }
-  try {
-    payload = await request.json()
-  } catch {
-    return Response.json({ error: 'Invalid request.' }, { status: 400 })
   }
 
   const history = Array.isArray(payload.messages) ? payload.messages : []
