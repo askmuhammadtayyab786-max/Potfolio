@@ -8,6 +8,21 @@ export const metadata: Metadata = {
   title: 'Tayyab Latif | DevOps, DevSecOps & Cloud Engineer',
   description: 'Portfolio of Tayyab Latif, a DevOps, DevSecOps and Cloud engineer in Islamabad, Pakistan, automating CI/CD, cloud infrastructure, and security for fast, safe software delivery.',
   generator: 'v0.app',
+  metadataBase: new URL('https://tayyabdevsecops.duckdns.org'),
+  openGraph: {
+    title: 'Muhammad Tayyab | DevSecOps & Infrastructure Engineer',
+    description: 'Production infrastructure, DevSecOps pipelines and cloud projects: Kubernetes, Terraform on AWS, Jenkins CI/CD, pfSense HA and VMware vSphere.',
+    url: 'https://tayyabdevsecops.duckdns.org',
+    siteName: 'Muhammad Tayyab — Portfolio',
+    images: [{ url: '/og-image.png', width: 1200, height: 627, alt: 'Muhammad Tayyab — DevSecOps & Infrastructure Engineer' }],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Muhammad Tayyab | DevSecOps & Infrastructure Engineer',
+    description: 'Production infrastructure, DevSecOps pipelines and cloud projects.',
+    images: ['/og-image.png'],
+  },
   icons: {
     icon: [
       {
