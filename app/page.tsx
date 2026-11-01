@@ -72,6 +72,39 @@ const projects: Project[] = [
     features: ['69 threats → Jira backlog', 'Snyk: 9 → 0 vulns', 'Gitleaks CI gate', 'Vault fail-closed secrets', 'Edge rate limiting + fail2ban'],
   },
   {
+    title: 'FileForge DevSecOps CI/CD Pipeline',
+    category: 'CI/CD | Shift-Left Security',
+    description: 'Jenkins pipeline for a React + Express + MongoDB file platform that runs secret scanning, SAST with a quality gate, SCA, image scanning, SBOMs, a Vault-backed deploy and a DAST scan on every build.',
+    terminal: ['$ jenkins build #fileforge', '  gitleaks -> sonarqube + quality gate', '  snyk -> owasp dependency-check', '  docker build -> trivy -> syft sbom -> grype', '  deploy (vault) -> owasp zap baseline', '✓ reports archived per stage'],
+    badge: 'Jenkins',
+    link: 'https://github.com/askmuhammadtayyab786-max/fileforge-devsecops-pipeline',
+    tags: ['Jenkins', 'SonarQube', 'Snyk', 'Trivy', 'Syft/Grype', 'OWASP ZAP'],
+    stack: ['CI/CD', 'DevSecOps'],
+    features: ['10+ security stages', 'Quality gate', 'SBOM generation', 'Vault secrets', 'DAST scan'],
+  },
+  {
+    title: 'FileForge on Kubernetes — Secured',
+    category: 'Kubernetes | Threat-Model Driven',
+    description: 'FileForge deployed to Kubernetes after a STRIDE review, with 13 threats fixed in code and manifests: JWT auth, audit logs, upload quotas, policy enforcement, network isolation and encrypted storage.',
+    terminal: ['$ kubectl apply -f k8s/', '  namespace  secrets  storageclass (encrypted)', '  mongo  backend  frontend  ingress (tls)', '$ kyverno: runAsNonRoot  no privilege escalation', '$ netpol: mongo <- backend only', '✓ 13 STRIDE threats fixed'],
+    badge: 'Kubernetes',
+    link: 'https://github.com/askmuhammadtayyab786-max/fileforge-devsecops-k8s',
+    tags: ['Kubernetes', 'Kyverno', 'NetworkPolicy', 'Vault', 'cert-manager', 'SBOM'],
+    stack: ['Kubernetes', 'DevSecOps'],
+    features: ['Kyverno policies', 'NetworkPolicies', 'Encrypted PVCs', 'Ingress rate limiting', 'Vault service account'],
+  },
+  {
+    title: 'Terraform Multi-Environment AWS',
+    category: 'Infrastructure as Code | AWS',
+    description: 'One Terraform codebase that provisions separate testing, dev and production environments on AWS using workspaces, with remote state locked in S3 and DynamoDB.',
+    terminal: ['$ terraform workspace select production', '$ terraform plan', '  + aws_vpc  aws_subnet  aws_security_group', '  + aws_instance  aws_s3_bucket (versioned, private)', '  state: s3 (encrypted) + dynamodb lock', '✓ apply complete'],
+    badge: 'AWS',
+    link: 'https://github.com/askmuhammadtayyab786-max/terraform-workspace',
+    tags: ['Terraform', 'AWS', 'EC2', 'S3', 'DynamoDB'],
+    stack: ['Terraform', 'Cloud'],
+    features: ['3 workspaces: testing/dev/prod', 'Per-env sizing', 'Remote state + locking', 'Versioned S3', 'Public access blocked'],
+  },
+  {
     title: 'Hardened Container Stack',
     category: 'Containers | Supply-Chain Security',
     description: 'Next.js frontend, Express API and PostgreSQL in Docker Compose, hardened to least privilege and scanned with Trivy until every image came back clean.',
@@ -81,6 +114,39 @@ const projects: Project[] = [
     tags: ['Docker', 'Compose', 'Trivy', 'PostgreSQL', 'Least privilege'],
     stack: ['DevSecOps'],
     features: ['Non-root containers', 'cap_drop ALL + read-only FS', 'Loopback-only ports', 'Least-privilege DB role', 'Trivy HTML reports'],
+  },
+  {
+    title: 'FileForge CI/CD with Jenkins',
+    category: 'CI/CD | Containers',
+    description: 'Jenkins pipeline that rebuilds and redeploys the full FileForge stack — React, Express, MongoDB and an Nginx reverse proxy — with Docker Compose and a post-deploy health check.',
+    terminal: ['$ jenkins build #fileforge', '  checkout -> compose down -> prune images', '  compose build --no-cache -> compose up -d', '$ docker ps  frontend  backend  mongo  nginx', '✓ health check passed'],
+    badge: 'Jenkins',
+    link: 'https://github.com/askmuhammadtayyab786-max/filefordgewithjenkins',
+    tags: ['Jenkins', 'Docker Compose', 'Nginx', 'MongoDB'],
+    stack: ['CI/CD'],
+    features: ['Automated rebuild', 'Zero manual steps', 'Health checks', 'Logs on failure'],
+  },
+  {
+    title: 'FileForge on AWS EC2 with Docker',
+    category: 'Cloud Deployment | AWS',
+    description: 'Containerised file-processing platform deployed on AWS EC2 with Docker Compose behind an Nginx reverse proxy, with a one-command redeploy script.',
+    terminal: ['$ ssh ubuntu@ec2', '$ ./scripts/postScript.sh', '  compose down -> build -> up -d', '  nginx :80 -> frontend :3000', '  nginx /api -> backend :5000 -> mongo', '✓ live on ec2'],
+    badge: 'AWS',
+    link: 'https://github.com/askmuhammadtayyab786-max/fileforge-docker-aws',
+    tags: ['AWS EC2', 'Docker', 'Nginx', 'React', 'Node.js'],
+    stack: ['Cloud'],
+    features: ['EC2 deployment', 'Reverse proxy', 'Redeploy script', 'Multi-container stack'],
+  },
+  {
+    title: 'LogStream — Real-Time Log Monitor',
+    category: 'Monitoring | CI/CD',
+    description: 'Real-time log monitoring app with live WebSocket updates, filtering and error alerts, containerised and deployed through a Jenkins pipeline.',
+    terminal: ['$ jenkins build #logstream', '  docker build backend  docker build frontend', '  compose up -d  frontend  backend  mongo', '$ socket.io  new-log  ERROR  payment-svc', '✓ live dashboard updating'],
+    badge: 'Jenkins',
+    link: 'https://github.com/askmuhammadtayyab786-max/user-logs-monitor',
+    tags: ['React', 'Node.js', 'Socket.IO', 'MongoDB', 'Jenkins'],
+    stack: ['CI/CD'],
+    features: ['Real-time WebSocket feed', 'Level/service filters', 'Error alerts', 'Jenkins deploy'],
   },
   {
     title: 'VMware vSphere HA Lab',
@@ -167,7 +233,7 @@ const projects: Project[] = [
 ]
 
 // Filter buttons in display order; any without matching projects are hidden.
-const projectFilters = ['All', 'Infrastructure', 'DevSecOps', 'Networking', 'React', 'Next.js', 'Node.js', 'MERN', 'AI', 'FinTech', 'Full-stack']
+const projectFilters = ['All', 'DevSecOps', 'CI/CD', 'Kubernetes', 'Terraform', 'Cloud', 'Infrastructure', 'Networking', 'React', 'Next.js', 'Node.js', 'MERN', 'AI', 'FinTech', 'Full-stack']
   .map((label) => ({ label, count: label === 'All' ? projects.length : projects.filter((project) => project.stack.includes(label)).length }))
   .filter((filter) => filter.count > 0)
 
