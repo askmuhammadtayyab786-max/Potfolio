@@ -1,5 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import { Toaster } from 'sonner'
+import { ChatWidget } from '@/components/chat-widget'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
@@ -58,6 +59,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         {children}
+        <ChatWidget />
         <Toaster theme="dark" position="bottom-right" closeButton offset={{ right: 24, bottom: 100 }} mobileOffset={{ right: 16, left: 16, bottom: 88 }} toastOptions={{ className: 'portfolio-toast' }} />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
