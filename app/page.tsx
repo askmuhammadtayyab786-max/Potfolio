@@ -20,6 +20,8 @@ import {
   LoaderCircle,
   CircleCheck,
   Clock3,
+  Briefcase,
+  Store,
 } from 'lucide-react'
 import { TypeText, type TypeSegment } from '@/components/type-text'
 import { AtomOrbits } from '@/components/atom-orbits'
@@ -32,12 +34,26 @@ type Project = {
   description: string
   image: string
   link: string
+  linkLabel?: string
+  repo?: string
   tags: string[]
   stack: string[]
   features?: string[]
 }
 
 const projects: Project[] = [
+  {
+    title: 'Secure Infra From Scratch',
+    category: 'Infrastructure | DevSecOps | Live production',
+    description: 'From the ISP line to a live, secured hospital app: pfSense HA, VMware vCenter, a hardened HAProxy + Nginx edge, Docker with HashiCorp Vault, and Let\'s Encrypt via DNS-01 behind double NAT, with security scanning at every stage.',
+    image: '/projects/secure-infra.png',
+    link: 'https://clinicloud.duckdns.org:9443',
+    linkLabel: 'View live demo',
+    repo: 'https://github.com/askmuhammadtayyab786-max/secure-infra-from-scratch',
+    tags: ['pfSense HA', 'VMware', 'HAProxy', 'Docker', 'Vault'],
+    stack: ['DevSecOps', 'Infrastructure'],
+    features: ['69 threats modeled (STRIDE)', 'Snyk vulnerabilities 9 → 0', 'Trivy CVEs 85 → 0', 'Non-root containers, no capabilities', 'Admin MFA, demo accounts locked', 'Auto-renewing TLS without opening a port'],
+  },
   {
     title: 'Traffic Flow AI Dashboard',
     description: 'AI-powered traffic management dashboard with analytics, monitoring, and intelligent insights.',
@@ -103,13 +119,15 @@ const projects: Project[] = [
 ]
 
 // Filter buttons in display order; any without matching projects are hidden.
-const projectFilters = ['All', 'React', 'Next.js', 'Node.js', 'MERN', 'AI', 'FinTech', 'Full-stack']
+const projectFilters = ['All', 'DevSecOps', 'Infrastructure', 'React', 'Next.js', 'Node.js', 'MERN', 'AI', 'FinTech', 'Full-stack']
   .map((label) => ({ label, count: label === 'All' ? projects.length : projects.filter((project) => project.stack.includes(label)).length }))
   .filter((filter) => filter.count > 0)
 
 const skills = ['AWS', 'Docker', 'Kubernetes', 'ArgoCD', 'Terraform', 'Ansible', 'Jenkins', 'GitHub Actions', 'Trivy', 'SonarQube', 'HashiCorp Vault', 'Prometheus', 'Grafana', 'Linux']
 
 const OWNER_EMAIL = 'askmuhammadtayyab786@gmail.com'
+const FIVERR_URL = 'https://www.fiverr.com/muhammadtayy724'
+const UPWORK_URL = 'https://www.upwork.com/freelancers/~013155b5af1f177b63'
 
 const heroHeading: TypeSegment[] = [{ text: 'Secure delivery, ' }, { text: 'automated end to end.', accent: true }]
 const aboutLead: TypeSegment[] = [{ text: "I'm Tayyab, a DevOps and DevSecOps engineer who automates how software is built, shipped, and secured — so releases are fast, repeatable, and safe by default." }]
@@ -156,7 +174,7 @@ const ProjectCard = memo(function ProjectCard({ project }: { project: Project })
   return (
     <article ref={ref} className={inView ? 'project-card in-view' : 'project-card'}>
       <a className="project-image" href={project.link} target="_blank" rel="noreferrer"><img src={project.image} alt={`${project.title} dashboard screenshot`} /><span className="image-electron" aria-hidden="true" /><span className="image-electron image-electron-two" aria-hidden="true" /></a>
-      <div className="project-body"><div className="tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><TypeText as="h3" segments={titleSegments} speed={28} delay={250} />{project.category && <p className="project-category">{project.category}</p>}<p>{project.description}</p>{project.features && <ul className="feature-list">{project.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>}<a className="project-link" href={project.link} target="_blank" rel="noreferrer">View live project <ArrowUpRight size={16} /></a></div>
+      <div className="project-body"><div className="tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><TypeText as="h3" segments={titleSegments} speed={28} delay={250} />{project.category && <p className="project-category">{project.category}</p>}<p>{project.description}</p>{project.features && <ul className="feature-list">{project.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>}<a className="project-link" href={project.link} target="_blank" rel="noreferrer">{project.linkLabel ?? 'View live project'} <ArrowUpRight size={16} /></a>{project.repo && <a className="project-link" href={project.repo} target="_blank" rel="noreferrer">View code &amp; evidence <ArrowUpRight size={16} /></a>}</div>
     </article>
   )
 })
@@ -258,6 +276,8 @@ export default function Page() {
             <div className="hero-actions">
               <a className="button primary" href="#projects">Explore my work <ArrowUpRight size={18} /></a>
               <a className="button secondary" href="#contact">Start a conversation</a>
+              <a className="button secondary" href={FIVERR_URL} target="_blank" rel="noreferrer"><Store size={17} /> Hire on Fiverr</a>
+              <a className="button secondary" href={UPWORK_URL} target="_blank" rel="noreferrer"><Briefcase size={17} /> Hire on Upwork</a>
             </div>
             <div className="stats">
               <div><strong>20+</strong><span>Projects shipped</span></div>
@@ -327,7 +347,7 @@ export default function Page() {
               <p className="eyebrow">Let&apos;s connect</p>
               <TypeText as="h2" segments={contactHeading} speed={55} />
               <TypeText as="p" segments={contactIntro} speed={22} delay={1300} />
-              <div className="contact-links"><a href="mailto:askmuhammadtayyab786@gmail.com"><Mail size={18} />askmuhammadtayyab786@gmail.com</a><a href="tel:+923154064911"><Phone size={18} />+92 315 4064911</a><span className="contact-location"><MapPin size={18} />Islamabad, Pakistan</span><a href="https://www.linkedin.com/in/muhammad-tayyab41" target="_blank" rel="noreferrer"><Link2 size={18} />LinkedIn</a><a href="https://github.com/askmuhammadtayyab786-max" target="_blank" rel="noreferrer"><AtSign size={18} />GitHub</a></div>
+              <div className="contact-links"><a href="mailto:askmuhammadtayyab786@gmail.com"><Mail size={18} />askmuhammadtayyab786@gmail.com</a><a href="tel:+923154064911"><Phone size={18} />+92 315 4064911</a><span className="contact-location"><MapPin size={18} />Islamabad, Pakistan</span><a href="https://www.linkedin.com/in/muhammad-tayyab41" target="_blank" rel="noreferrer"><Link2 size={18} />LinkedIn</a><a href="https://github.com/askmuhammadtayyab786-max" target="_blank" rel="noreferrer"><AtSign size={18} />GitHub</a><a href={FIVERR_URL} target="_blank" rel="noreferrer"><Store size={18} />Fiverr</a><a href={UPWORK_URL} target="_blank" rel="noreferrer"><Briefcase size={18} />Upwork</a></div>
             </div>
             <form className="contact-form" onSubmit={handleContactSubmit} aria-busy={contactStatus === 'sending'}>
               <div className="form-row">
