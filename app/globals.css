@@ -326,3 +326,6 @@ html [data-sonner-toaster] [data-sonner-toast].portfolio-toast[data-type='loadin
 /* Keep the chat launcher clear of the 'Powered by Netlify' badge */
 .chat-widget { bottom: 84px; }
 @media (max-width: 700px) { .chat-widget { bottom: 76px; } }
+
+/* Live demo + GitHub links side by side */
+.project-links { display: flex; flex-wrap: wrap; gap: 8px 22px; }

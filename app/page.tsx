@@ -33,6 +33,8 @@ type Project = {
   image?: string
   terminal?: string[]
   link?: string
+  live?: string
+  linkLabel?: string
   badge?: string
   tags: string[]
   stack: string[]
@@ -40,6 +42,18 @@ type Project = {
 }
 
 const projects: Project[] = [
+  {
+    title: 'Secure Infra From Scratch',
+    category: 'Infrastructure | DevSecOps | Live production',
+    description: "From the ISP line to a live, secured hospital app: pfSense HA, VMware vCenter, a hardened HAProxy + Nginx edge, Docker with HashiCorp Vault, and Let's Encrypt via DNS-01 behind double NAT, with security scanning at every stage.",
+    image: '/projects/secure-infra.png',
+    live: 'https://clinicloud.duckdns.org:9443/',
+    link: 'https://github.com/askmuhammadtayyab786-max/secure-infra-from-scratch',
+    linkLabel: 'View code & evidence',
+    tags: ['pfSense HA', 'VMware', 'HAProxy', 'Docker', 'Vault'],
+    stack: ['DevSecOps', 'Infrastructure'],
+    features: ['69 threats modeled (STRIDE)', 'Snyk vulnerabilities 9 → 0', 'Trivy CVEs 85 → 0', 'Non-root containers, no capabilities', 'Admin MFA, demo accounts locked', 'Auto-renewing TLS without opening a port'],
+  },
   {
     title: 'BigBlueButton Multi-Node Cluster',
     category: 'Production Infrastructure | EdTech Live Classes',
@@ -60,17 +74,7 @@ const projects: Project[] = [
     stack: ['Infrastructure'],
     features: ['9+ production instances', 'Tangerine → Moodle results import', 'BBB live class integration', 'Linux server operations'],
   },
-  {
-    title: 'Secure Infra From Scratch',
-    category: 'DevSecOps | End-to-End Build',
-    description: 'A hospital 3-tier app taken from bare network to hardened production: STRIDE threat model, SAST/SCA/secret scanning, Vault-managed secrets and a locked-down HAProxy + Nginx edge — with before/after evidence for every layer.',
-    terminal: ['$ threat-dragon  STRIDE -> 69 threats -> jira', '$ snyk test        9 issues -> 0  (397 tests pass)', '$ gitleaks detect  2 leaks  -> 0  (CI gate on PRs)', '$ trivy image      47/6/6/26 -> 0/0/0/0', '$ curl /.env      403 · TRACE 405 · brute-force 429', '✓ vault down -> app refuses to start'],
-    badge: 'Open source',
-    link: 'https://github.com/askmuhammadtayyab786-max/secure-infra-from-scratch',
-    tags: ['Threat modeling', 'Snyk', 'Gitleaks', 'Vault', 'Trivy', 'HAProxy'],
-    stack: ['DevSecOps', 'Infrastructure'],
-    features: ['69 threats → Jira backlog', 'Snyk: 9 → 0 vulns', 'Gitleaks CI gate', 'Vault fail-closed secrets', 'Edge rate limiting + fail2ban'],
-  },
+
   {
     title: 'FileForge DevSecOps CI/CD Pipeline',
     category: 'CI/CD | Shift-Left Security',
@@ -292,9 +296,9 @@ const ProjectCard = memo(function ProjectCard({ project }: { project: Project })
       {project.terminal ? (
         <div className="project-image project-terminal" aria-label={`${project.title} overview`}><div className="terminal-bar"><i /><i /><i />{project.badge && <span>{project.badge}</span>}</div><pre>{project.terminal.map((line) => <code key={line} className={line.startsWith('✓') ? 'ok' : line.startsWith('$') ? 'cmd' : undefined}>{line}</code>)}</pre><span className="image-electron" aria-hidden="true" /><span className="image-electron image-electron-two" aria-hidden="true" /></div>
       ) : (
-        <a className="project-image" href={project.link} target="_blank" rel="noreferrer"><img src={project.image} alt={`${project.title} dashboard screenshot`} /><span className="image-electron" aria-hidden="true" /><span className="image-electron image-electron-two" aria-hidden="true" /></a>
+        <a className="project-image" href={project.live ?? project.link} target="_blank" rel="noreferrer"><img src={project.image} alt={`${project.title} dashboard screenshot`} /><span className="image-electron" aria-hidden="true" /><span className="image-electron image-electron-two" aria-hidden="true" /></a>
       )}
-      <div className="project-body"><div className="tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><TypeText as="h3" segments={titleSegments} speed={28} delay={250} />{project.category && <p className="project-category">{project.category}</p>}<p>{project.description}</p>{project.features && <ul className="feature-list">{project.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>}{project.link ? <a className="project-link" href={project.link} target="_blank" rel="noreferrer">{project.link.includes('github.com') ? 'View on GitHub' : 'View live project'} <ArrowUpRight size={16} /></a> : <span className="project-link project-private">Private production system</span>}</div>
+      <div className="project-body"><div className="tag-row">{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div><TypeText as="h3" segments={titleSegments} speed={28} delay={250} />{project.category && <p className="project-category">{project.category}</p>}<p>{project.description}</p>{project.features && <ul className="feature-list">{project.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>}<div className="project-links">{project.live && <a className="project-link" href={project.live} target="_blank" rel="noreferrer">View live demo <ArrowUpRight size={16} /></a>}{project.link ? <a className="project-link" href={project.link} target="_blank" rel="noreferrer">{project.linkLabel ?? (project.link.includes('github.com') ? 'View on GitHub' : 'View live project')} <ArrowUpRight size={16} /></a> : !project.live && <span className="project-link project-private">Private production system</span>}</div></div>
     </article>
   )
 })
